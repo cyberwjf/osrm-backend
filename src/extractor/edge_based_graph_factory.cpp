@@ -569,7 +569,9 @@ void EdgeBasedGraphFactory::GenerateEdgeExpandedEdges(
             // compute weight and duration penalties
             auto is_traffic_light = m_traffic_lights.count(node_at_center_of_intersection);
             ExtractionTurn extracted_turn(
-                turn,
+                turn.angle,
+                m_node_based_graph.GetOutDegree(node_at_center_of_intersection),
+                turn.instruction.direction_modifier == guidance::DirectionModifier::UTurn,
                 is_traffic_light,
                 edge_data1.flags.restricted,
                 edge_data2.flags.restricted,
