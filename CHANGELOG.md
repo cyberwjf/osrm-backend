@@ -1,4 +1,11 @@
 # UNRELEASED
+  - Changes from 5.13
+    - API:
+      - new RouteStep property `driving_side` that has either "left" or "right" for that step
+    - Misc:
+      - Bundling a rough (please improve!) driving-side GeoJSON file for use with `osrm-extract --location-dependent-data data/driving_side.geojson`
+    - Bugfix:
+      - Properly use the `profile.properties.left_hand_driving` property, there was a typo that meant it had no effect
 
 # 5.13.0
   - Changes from 5.12:

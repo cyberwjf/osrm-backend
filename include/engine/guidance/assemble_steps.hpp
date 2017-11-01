@@ -141,7 +141,8 @@ inline std::vector<RouteStep> assembleSteps(const datafacade::BaseDataFacade &fa
                                           maneuver,
                                           leg_geometry.FrontIndex(segment_index),
                                           leg_geometry.BackIndex(segment_index) + 1,
-                                          {intersection}});
+                                          {intersection},
+                                          path_point.is_left_hand_driving});
 
                 if (leg_data_index + 1 < leg_data.size())
                 {
@@ -204,22 +205,24 @@ inline std::vector<RouteStep> assembleSteps(const datafacade::BaseDataFacade &fa
         // intersections contain the classes of exiting road
         intersection.classes = facade.GetClasses(facade.GetClassData(target_node_id));
         BOOST_ASSERT(duration >= 0);
-        steps.push_back(RouteStep{step_name_id,
-                                  facade.GetNameForID(step_name_id).to_string(),
-                                  facade.GetRefForID(step_name_id).to_string(),
-                                  facade.GetPronunciationForID(step_name_id).to_string(),
-                                  facade.GetDestinationsForID(step_name_id).to_string(),
-                                  facade.GetExitsForID(step_name_id).to_string(),
-                                  NO_ROTARY_NAME,
-                                  NO_ROTARY_NAME,
-                                  duration / 10.,
-                                  distance,
-                                  weight / weight_multiplier,
-                                  target_mode,
-                                  maneuver,
-                                  leg_geometry.FrontIndex(segment_index),
-                                  leg_geometry.BackIndex(segment_index) + 1,
-                                  {intersection}});
+        steps.push_back(
+            RouteStep{step_name_id,
+                      facade.GetNameForID(step_name_id).to_string(),
+                      facade.GetRefForID(step_name_id).to_string(),
+                      facade.GetPronunciationForID(step_name_id).to_string(),
+                      facade.GetDestinationsForID(step_name_id).to_string(),
+                      facade.GetExitsForID(step_name_id).to_string(),
+                      NO_ROTARY_NAME,
+                      NO_ROTARY_NAME,
+                      duration / 10.,
+                      distance,
+                      weight / weight_multiplier,
+                      target_mode,
+                      maneuver,
+                      leg_geometry.FrontIndex(segment_index),
+                      leg_geometry.BackIndex(segment_index) + 1,
+                      {intersection},
+                      facade.IsLeftHandDriving(target_node_id)}); // TODO: this one is wrong
     }
     // In this case the source + target are on the same edge segment
     else
@@ -261,7 +264,8 @@ inline std::vector<RouteStep> assembleSteps(const datafacade::BaseDataFacade &fa
                                   std::move(maneuver),
                                   leg_geometry.FrontIndex(segment_index),
                                   leg_geometry.BackIndex(segment_index) + 1,
-                                  {intersection}});
+                                  {intersection},
+                                  facade.IsLeftHandDriving(source_node_id)});
     }
 
     BOOST_ASSERT(segment_index == number_of_segments - 1);
@@ -301,7 +305,8 @@ inline std::vector<RouteStep> assembleSteps(const datafacade::BaseDataFacade &fa
                               std::move(maneuver),
                               leg_geometry.locations.size() - 1,
                               leg_geometry.locations.size(),
-                              {intersection}});
+                              {intersection},
+                              facade.IsLeftHandDriving(source_node_id)});
 
     BOOST_ASSERT(steps.front().intersections.size() == 1);
     BOOST_ASSERT(steps.front().intersections.front().bearings.size() == 1);
