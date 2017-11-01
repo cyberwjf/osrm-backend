@@ -40,8 +40,8 @@ Feature: Car - Handle driving
 
         When I route I should get
             | from | to | route           | modes                           | speed   | time     |
-            | a    | g  | abc,cde,efg,efg | driving,driving,driving,driving | 13 km/h | 340s +-1 |
-            | e    | c  | cde,cde         | driving,driving                 | 5 km/h  | 295s +-1 |
+            | a    | g  | abc,cde,efg,efg | driving,driving,driving,driving | 13 km/h | 332s +-1 |
+            | e    | c  | cde,cde         | driving,driving                 | 5 km/h  | 288s +-1 |
 
     Scenario: Car - Properly handle durations
         Given the node map
