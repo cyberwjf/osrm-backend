@@ -581,7 +581,11 @@ void Sol2ScriptingEnvironment::InitContext(LuaScriptingContext &context)
                                                    "target_restricted",
                                                    &ExtractionTurn::target_restricted,
                                                    "is_left_hand_driving",
-                                                   &ExtractionTurn::is_left_hand_driving);
+                                                   &ExtractionTurn::is_left_hand_driving,
+                                                   "source_mode",
+                                                   &ExtractionTurn::source_mode,
+                                                   "target_mode",
+                                                   &ExtractionTurn::target_mode);
         initV2Context();
         break;
     }

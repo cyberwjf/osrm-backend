@@ -20,11 +20,13 @@ struct ExtractionTurn
                    bool has_traffic_light,
                    bool source_restricted,
                    bool target_restricted,
-                   bool is_left_hand_driving)
+                   bool is_left_hand_driving,
+                   TravelMode source_mode,
+                   TravelMode target_mode)
         : angle(180. - angle), number_of_roads(number_of_roads), is_u_turn(is_u_turn),
           has_traffic_light(has_traffic_light), source_restricted(source_restricted),
           target_restricted(target_restricted), is_left_hand_driving(is_left_hand_driving),
-          weight(0.), duration(0.)
+          weight(0.), duration(0.), source_mode(source_mode), target_mode(target_mode)
     {
     }
 
@@ -34,7 +36,7 @@ struct ExtractionTurn
                    bool is_left_hand_driving)
         : angle(0), number_of_roads(2), is_u_turn(false), has_traffic_light(has_traffic_light),
           source_restricted(source_restricted), target_restricted(target_restricted),
-          is_left_hand_driving(is_left_hand_driving), weight(0.), duration(0.)
+          is_left_hand_driving(is_left_hand_driving), weight(0.), duration(0.), source_mode(TRAVEL_MODE_DRIVING), target_mode(TRAVEL_MODE_DRIVING)
     {
     }
 
@@ -45,9 +47,10 @@ struct ExtractionTurn
     const bool source_restricted;
     const bool target_restricted;
     const bool is_left_hand_driving;
-
     double weight;
     double duration;
+    TravelMode source_mode;
+    TravelMode target_mode;
 };
 }
 }

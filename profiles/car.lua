@@ -420,9 +420,7 @@ function process_turn(profile, turn)
       turn.duration = profile.properties.traffic_light_penalty
   end
 
-  -- if turn.turn_type ~= turn_type.no_turn then
-
-  if turn.number_of_roads > 2 then
+  if turn.number_of_roads > 2 or turn.source_mode ~= turn.target_mode then
     if turn.angle >= 0 then
       turn.duration = turn.duration + turn_penalty / (1 + math.exp( -((13 / turn_bias) *  turn.angle/180 - 6.5*turn_bias)))
     else
