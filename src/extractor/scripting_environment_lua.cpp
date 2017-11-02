@@ -559,39 +559,8 @@ void Sol2ScriptingEnvironment::InitContext(LuaScriptingContext &context)
         }
     };
 
-    switch (context.api_version)
-    {
-    case 4:
-    {
-        context.state.new_usertype<ExtractionTurn>("ExtractionTurn",
-                                                   "angle",
-                                                   &ExtractionTurn::angle,
-                                                   "number_of_roads",
-                                                   &ExtractionTurn::number_of_roads,
-                                                   "is_u_turn",
-                                                   &ExtractionTurn::is_u_turn,
-                                                   "has_traffic_light",
-                                                   &ExtractionTurn::has_traffic_light,
-                                                   "weight",
-                                                   &ExtractionTurn::weight,
-                                                   "duration",
-                                                   &ExtractionTurn::duration,
-                                                   "source_restricted",
-                                                   &ExtractionTurn::source_restricted,
-                                                   "target_restricted",
-                                                   &ExtractionTurn::target_restricted,
-                                                   "is_left_hand_driving",
-                                                   &ExtractionTurn::is_left_hand_driving,
-                                                   "source_mode",
-                                                   &ExtractionTurn::source_mode,
-                                                   "target_mode",
-                                                   &ExtractionTurn::target_mode);
-        initV2Context();
-        break;
-    }
-    case 3:
-    case 2:
-    {
+    auto initialize_V3_extraction_turn = [&](){
+
         context.state.new_usertype<ExtractionTurn>(
             "ExtractionTurn",
             "angle",
@@ -696,12 +665,49 @@ void Sol2ScriptingEnvironment::InitContext(LuaScriptingContext &context)
                                extractor::guidance::DirectionModifier::Left,
                                "sharp_left",
                                extractor::guidance::DirectionModifier::SharpLeft);
+    };
 
+    switch (context.api_version)
+    {
+    case 4:
+    {
+        context.state.new_usertype<ExtractionTurn>("ExtractionTurn",
+                                                   "angle",
+                                                   &ExtractionTurn::angle,
+                                                   "number_of_roads",
+                                                   &ExtractionTurn::number_of_roads,
+                                                   "is_u_turn",
+                                                   &ExtractionTurn::is_u_turn,
+                                                   "has_traffic_light",
+                                                   &ExtractionTurn::has_traffic_light,
+                                                   "weight",
+                                                   &ExtractionTurn::weight,
+                                                   "duration",
+                                                   &ExtractionTurn::duration,
+                                                   "source_restricted",
+                                                   &ExtractionTurn::source_restricted,
+                                                   "target_restricted",
+                                                   &ExtractionTurn::target_restricted,
+                                                   "is_left_hand_driving",
+                                                   &ExtractionTurn::is_left_hand_driving,
+                                                   "source_mode",
+                                                   &ExtractionTurn::source_mode,
+                                                   "target_mode",
+                                                   &ExtractionTurn::target_mode);
+        initV2Context();
+        break;
+    }
+    case 3:
+    case 2:
+    {
+        initialize_V3_extraction_turn();
         initV2Context();
         break;
     }
     case 1:
     {
+        initialize_V3_extraction_turn();
+
         // cache references to functions for faster execution
         context.turn_function = context.state["turn_function"];
         context.node_function = context.state["node_function"];
@@ -732,6 +738,8 @@ void Sol2ScriptingEnvironment::InitContext(LuaScriptingContext &context)
         break;
     }
     case 0:
+        initialize_V3_extraction_turn();
+
         // cache references to functions for faster execution
         context.turn_function = context.state["turn_function"];
         context.node_function = context.state["node_function"];
