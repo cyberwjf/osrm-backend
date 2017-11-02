@@ -420,22 +420,16 @@ function process_turn(profile, turn)
       turn.duration = profile.properties.traffic_light_penalty
   end
 
-  -- if turn.turn_type ~= turn_type.no_turn then
-
-  io.write("turn.number_of_roads: ", turn.number_of_roads, "\n")
-  io.write("turn.source_mode: ", turn.source_mode, " ")
-  io.write("turn.target_mode: ", turn.target_mode, "\n")
   if turn.number_of_roads > 2 or turn.source_mode ~= turn.target_mode then
-    io.write(turn.number_of_roads, "\n")
     if turn.angle >= 0 then
       turn.duration = turn.duration + turn_penalty / (1 + math.exp( -((13 / turn_bias) *  turn.angle/180 - 6.5*turn_bias)))
     else
       turn.duration = turn.duration + turn_penalty / (1 + math.exp( -((13 * turn_bias) * -turn.angle/180 - 6.5/turn_bias)))
     end
+  end
 
-    if turn.is_u_turn then
-      turn.duration = turn.duration + profile.properties.u_turn_penalty
-    end
+  if turn.is_u_turn then
+    turn.duration = turn.duration + profile.properties.u_turn_penalty
   end
 
   -- for distance based routing we don't want to have penalties based on turn angle
