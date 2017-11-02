@@ -559,7 +559,7 @@ void Sol2ScriptingEnvironment::InitContext(LuaScriptingContext &context)
         }
     };
 
-    auto initialize_V3_extraction_turn = [&](){
+    auto initialize_V3_extraction_turn = [&]() {
 
         context.state.new_usertype<ExtractionTurn>(
             "ExtractionTurn",

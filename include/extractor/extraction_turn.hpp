@@ -36,7 +36,8 @@ struct ExtractionTurn
                    bool is_left_hand_driving)
         : angle(0), number_of_roads(2), is_u_turn(false), has_traffic_light(has_traffic_light),
           source_restricted(source_restricted), target_restricted(target_restricted),
-          is_left_hand_driving(is_left_hand_driving), weight(0.), duration(0.), source_mode(TRAVEL_MODE_DRIVING), target_mode(TRAVEL_MODE_DRIVING)
+          is_left_hand_driving(is_left_hand_driving), weight(0.), duration(0.),
+          source_mode(TRAVEL_MODE_DRIVING), target_mode(TRAVEL_MODE_DRIVING)
     {
     }
 

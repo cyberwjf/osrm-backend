@@ -577,10 +577,8 @@ void EdgeBasedGraphFactory::GenerateEdgeExpandedEdges(
                 edge_data2.flags.restricted,
                 m_edge_based_node_container.GetAnnotation(edge_data1.annotation_data)
                     .is_left_hand_driving,
-                m_edge_based_node_container.GetAnnotation(edge_data1.annotation_data)
-                    .travel_mode,
-                m_edge_based_node_container.GetAnnotation(edge_data2.annotation_data)
-                    .travel_mode);
+                m_edge_based_node_container.GetAnnotation(edge_data1.annotation_data).travel_mode,
+                m_edge_based_node_container.GetAnnotation(edge_data2.annotation_data).travel_mode);
             scripting_environment.ProcessTurn(extracted_turn);
 
             // turn penalties are limited to [-2^15, 2^15) which roughly
