@@ -984,7 +984,7 @@ Feature: Simple Turns
             | gfeh  | Centreville Road               | primary     |        |
             | fi    | fi                             | trunk_link  | yes    |
             | ij    | Bloomingdale Road              | residential |        |
-            | jkabx | Blue Star Memorial Hwy         | trunk       |        |
+            | jkabx | Blue Star Memorial Hwy         | trunk       | yes    |
             | bcde  | bcde                           | trunk_link  | yes    |
             | kh    | kh                             | trunk_link  | yes    |
 
